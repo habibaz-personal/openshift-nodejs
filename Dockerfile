@@ -14,6 +14,8 @@ COPY . .
 # Build application
 RUN npm run build
 
+RUN sudo chown -R 1011030000:0 "/.npm"
+
 # Run the server in production mode
 CMD npm run server:prod
 
