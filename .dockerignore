@@ -1,7 +1,7 @@
-node_modules
-npm-debug.log
-Dockerfile
+**/node_modules/
+**/dist
 .git
-.gitignore
-build
-README.md
+npm-debug.log
+.coverage
+.coverage.*
+.aws

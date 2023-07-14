@@ -1,20 +1,23 @@
-FROM node:18-alpine as base
+# Production Dockerfile
+FROM node:16-alpine
 
-WORKDIR /usr/src/app
-EXPOSE 3000
+WORKDIR /app
 
-FROM base as builder
-COPY ["package.json", "package-lock.json*", "./"]
-COPY ./tsconfig.json ./tsconfig.json
-COPY ./src ./src
-RUN npm ci --only-production
-RUN npm run compile
-RUN npm prune --production
+# Copy package.json and package-lock.json files first
+COPY package*.json ./
 
-FROM base as release
-ENV NODE_ENV=production
-USER node
-COPY --chown=node:node --from=builder /usr/src/app/node_modules ./node_modules
-COPY --chown=node:node --from=builder /usr/src/app/build ./build
-COPY --chown=node:node . /usr/src/app
-CMD ["node", "./build/src/bin/server"]
+# Install dependencies
+RUN npm install
+
+COPY . .
+
+# Build application
+RUN npm run build
+
+# Run the server in production mode
+CMD npm run server:prod
+
+# Remove source code from production image
+RUN rm -Rf src
+
+EXPOSE 8080 

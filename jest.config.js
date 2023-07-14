@@ -1,9 +1,20 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+// TODO: use babel to run it with ES6
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('./tsconfig.json');
+require('dotenv').config({ path: '.env.local' });
+
 module.exports = {
-  preset: 'ts-jest',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/src',
+  }),
   testEnvironment: 'node',
-  clearMocks: true,
-  // roots: ['<rootDir>/src'],
-  collectCoverage: true,
-  collectCoverageFrom: ['src/**/([a-zA-Z_]*).{js,ts}', '!**/*.test.{js,ts}'],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  testPathIgnorePatterns: ['/lib/', '/node_modules/', '/img/', '/dist/'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  modulePaths: ['src'],
+  moduleDirectories: ['node_modules'],
+  setupFiles: ['dotenv/config'],
 };

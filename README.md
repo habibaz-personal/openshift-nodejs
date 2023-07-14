@@ -1,189 +1,188 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giuseppealbrizio/typescript-rest-api-backend/tree/main.svg?style=svg&circle-token=a73f0879b6f17258a912820c3082a572d49d4ff6)](https://dl.circleci.com/status-badge/redirect/gh/giuseppealbrizio/typescript-rest-api-backend/tree/main)
+# Node Express Template (NET.ts)
 
-[![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+The **N**ode **E**xpress **T**emplate (NET.ts) is a small template project which help you to speed up the process of building RESTful API.
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://github.com/Envoy-VC/awesome-badges)
-[![Kubernets](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)](https://github.com/Envoy-VC/awesome-badges)
+Inside of this repoistory you will find fully configured and ready to use **express** based web application for **Node.js** runtime. It’s built on **TypeScript** and follows the best **top-ranked** content on Node.js best practices from https://github.com/goldbergyoni/nodebestpractices repository.
 
-# Typescript REST API Backend Template
+### Main features:
 
-## Feel free to support this project
+- 🐳 Containerized application
+- 🚄 [ExpressJS](http://expressjs.com) framework with [TypeScript](https://www.typescriptlang.org/) on the board
+- ♻️ Live reload
+- 🏇 minified and optimized code for production build
+- ✏️ Linting via [ESLint](https://eslint.org) with Airbnb configuration
+- 🚑 Code Formatter with [Prettier](https://prettier.io)
+- 📘 VSCode configuration: Debug, Settings, Tasks and extension for ESLint, Prettier, TypeScript
+- 🚧 Jest for unit testing
+- 🏄 And many more...
 
-If you found this project helpful, please consider supporting me by buying me a coffee! Your support will help me to keep creating more useful content and improving this project.
+### Additional features:
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/galbrizio)
+The `master` branch contains the core version of NET.ts. However, if you need additional module (such as mongoDB for instacne), you can switch to any of the following dedicated branches. Keep in mind that the feature branches are regularly updated with changes made to the core version on the `master` branch.
 
----
+- 🌐 Mongo database - [See version with MongoDB](https://github.com/przemek-nowicki/node-express-template.ts/tree/add_mongo)
 
-#### Typescript REST microservice boilerplate using node.js and express and some other cool stuff
+## Getting started
 
-This template is intended to be used as single service in a REST multi-service application using Cloud Pub/Sub as
-message broker
+Install `Docker` and `Docker Compose` which are used to maximise the convenience of development on local machine.
 
-use in local with Skaffold and in cloud with GKE
+When both are installed, build the NET.ts image as follow:
 
-To know more about how to implement GKE and run with Skaffold please refer to this folder:
-
-`./infra`
-
-The application uses express as framework and is configured with the following features:
-
-- `ECMA2022` features enabled
-- `Dotenv` Load environment variables from .env file
-- `Eslint` Code quality tool
-- `Prettier` to prettify the code
-- `MongoDB` ready to go configuration with mongoose
-- `MySQL` ready to go configuration with mysql2
-- `CORS` feature enabled
-- `RBAC` logic to authorize people with specific roles to use the endpoints.
-- `Passport` logic to add an authentication layer if neeeded.
-- `Sparkpost` email service support with sparkpost.
-- `Error Handling` errors custom middleware and helpers globally configured
-- `Multer` File uploading configured to use in routes as middleware
-- `Google Cloud Storage` middleware configured to use Google Cloud Storage as upload bucket
-- `Google Cloud Pub/Sub` pub/sub support for event driven events added
-- `Axios` globally configured in `./src/utils/api.utils.js`
-- `Swagger` documentation reachable at `http://localhost:3000/api/v1/docs`
-- `Jest` Testing tool support
-- `Logger` Logging support with Winston
-- `Docker` ready configuration with multi-stage option
-- `Terraform` ready configuration to instantiate infrastracture in GCP
-- `Agenda` ready to emit events through agenda jobs
-- `Best practices` in naming files
-
-## Basic Information
-
-- App entry point is located in `./src/index.ts`
-
-- Server config entrypoint is located in `./src/bin/server.ts`
-
-- Prettier config is located at `./.prettierrc.js`
-
-- Eslint config is located at `./.eslintrc`
-
-- Sparkpost service support is located at `./src/services/email/sparkport.service.ts`
-
-  - You can define your own email services in this file
-
-- Mongo config is located at `./src/config/mongodb.config.ts`
-
-- MYSQL config is located at `./src/config/mysql.config.ts`
-
-- Error Handling middleware is located at `./src/middlewares/errorHandler.middleware.ts`
-
-  - You can configure as many errors you need in `./src/errors/`
-
-- Multer middleware is located at `./src/middlewares/upload.middleware.ts`
-
-  - If you want to use Google Cloud Storage as upload bucket follow instructions at `./src/config/gcloud/README.md`
-
-- RBAC logic middleware is located at `./src/middlewares/verifyApiRights.middleware.ts`
-
-- Swagger config file is located at `./src/api/swagger/swagger.route.js`
-
-  - Swagger routes are defined in `./src/api/swagger/swagger.route.ts`
-
-- Docker config is located at `./Dockerfile`
-
-- Pub/Sub service is located at `./src/services/pubsub/pub-sub.service.js`
-
-## Folder Structure
-
-> `infra/`
->
-> - **For more information about the k8s configuration please check the README file**
-> - **`k8s`** - folder contains all production kubernetes manifests
-> - **`k8s-dev`** - folder contains all development kubernetes manifests to run with skaffold
-> - **`scripts`** - older contains all script related to the creation of a cluster or running skaffold or secret
->   creation
->
-> `src/`
->
-> - **`api/`** - containing all api logic with model, services, controller and routes
-> - **`bin/`** - server configuration folder
-> - **`config/`** - this folder contains all the configs file (database, passport, etc...)
-> - **`constants/`** - this folder contains all the global constants
-> - **`logs/`** - the logger file will be stored here
-> - **`helpers/`** - some helpers func i.e. an error helper that returns json everytime an error comes in
-> - **`middlewares/`** - here you can find all the custom middlewares
-> - **`services/`** - here we store all the services; i.e. here we define methods to manipulate a db model entity
-> - **`tests/`** - here we store all the jest test
-> - **`utils/`** - containing some utils function to be reused in the code (i.e. axios global configuration)
-
-## Getting Started
-
-Copy the .env.example to .env. Be sure to fill all the global variables. Alternatively you can use the script `generate-env.sh` in the scripts folder. This script will generate a `.env.test.local` and you can copy this file to .env
-
-```bash
-cp env.example .env
+```sh
+docker-compose build
 ```
 
-Then replace:
+Run the app:
 
-1. `MONGO_URI` string with your Mongo connection
-   1. `MONGO_URI_TEST` string with your Mongo Test connection
-2. `MYSQL_HOST_STAGE` string with your mysql host name
-   - `MYSQL_USER_STAGE` string with your mysql username
-   - `MYSQL_PASSWORD_STAGE` string with your mysql password name
-   - `MYSQL_DB_STAGE` string with your mysql db name
-   - `MYSQL_SOCKET_STAGE` string with your mysql socket name
-3. `GOOGLE_APPLICATION_CREDENTIALS` path with yours
-4. `GOOGLE_PROJECT_ID` with yours
-5. `SENDGRID_API_KEY` with yours
-6. `SENDGRID_SENDER_EMAIL` with yours
+```sh
+docker-compose up
+```
 
-In order to Google Cloud Storage works follow instructions located in `./src/config/gcloud/README.md`
+Go to:
 
----
+```
+ http://localhost:8080/api/health
+```
 
-To get started with this repo npm install in the root folder
+If you see the following response in the browser:
 
-```bash
+```
+{"status":"OK","data":"2022-02-13T20:05:13.965Z"}
+```
+
+It means that everything work as expected. You may start to develop your business logic.
+Please scroll down to "How to work with NET.ts" section.
+
+## Getting started, standard way (no containerization)
+
+If you want to run NET.ts "standard way" using the `npm` instead of `docker-compose`.
+You are free to do it just keep in mind that I develop the NET.ts project on node version 16.
+Note: you need to set env variables defined in `.env.local` file.
+On mac OS you can use `export $(cat .env.local)` to export all env variables from the .env.local file.
+
+Install dependencies:
+
+```
 npm install
 ```
 
-To getting started with a dev environment. Here we use nodemon and babel-node to restart the server asa we change
-something
+Run server in dev mode:
 
-```bash
-npm run start:dev
+```
+npm run server:dev
 ```
 
-To compile the code and create a production build
+## How to work with NET.ts
 
-```bash
-npm run compile
+There are few rules that you have to obey to enjoy NET.ts fully.
+
+1. Enviromment variables - define your envs in `.env.local` file and provide validation rules for them inside `@config/config.ts` file.
+2. Structure your solution by components. There is an example [user](https://github.com/przemek-nowicki/node-express-template.ts/tree/master/src/components/user) CRUD component that shows how you may build logic for your own componnents.
+3. Define your routung inside `api.ts` fiile.
+4. Describe your newly created API inside `swagger.json` file
+
+## Testing
+
+The Jest test suites are run by executing
+
+```sh
+npm test
 ```
 
-This command will create a build in the root directory
+To run tests directly insiide of the NET.ts container:
 
-To start with a production ready build you can run this command
-
-```bash
-# This set the NODE_ENV to production, npm-run-all, create a build and run the server command
-npm run start
+```sh
+docker-compose run web npm run test
 ```
 
-If you have a build and you want to node the build you can run
+## Code linting
 
-```bash
-# This command launch the node instance inside the ./build/bin/server
-npm run server
+Run code quality analysis using
+
+```sh
+npm run lint
 ```
 
-## Docker Ready
+or insde of the container
 
-### Here we use the multistage build to optimize speed and size of the final image
-
-If you use Docker and wanna dockerize the app you can run the command
-
-```bash
-docker build -t <dockerhubusername>/<docker-image-name>:<tag> .
+```sh
+docker-compose run web npm run lint
 ```
 
-then
+## Fixing problems
 
-```bash
-docker run --name <docker-process-name> -d - p 3000:3000 <dockerhubusername>/<docker-image-name>:<tag>
+Automatically fix linter's problems
+
+```sh
+npm run lint:fix
 ```
+
+or insde of the container
+
+```sh
+docker-compose run web npm run lint:fix
+```
+
+## Logging
+
+```javascript
+import logger from '@core/utils/logger';
+
+logger.error('message'); // level 0
+logger.warn('message'); // level 1
+logger.info('message'); // level 2
+logger.http('message'); // level 3
+logger.verbose('message'); // level 4
+logger.debug('message'); // level 5
+logger.silly('message'); // level 6
+```
+
+In development mode, log messages of all severity levels will be printed to the console.
+In production mode, only `info`, `warn`, and `error` logs will be printed to the console.
+
+Note: API request information (request url, response code, timestamp, etc.) are also automatically logged (using [morgan](https://github.com/expressjs/morgan)).
+
+### Switching log-level on runtime
+
+If you use docker to run the app, please connect to `node-express-template_web*` container and simply execute `npm run loglevel:change` in new terminal. It will increase your current log level, in case you reach the highest level it will back to error level which is 0.
+This feature may be useful on production env when you want to switch your app log level to debug without restarting node server.
+
+## Troubleshooting
+
+To help you diagnose problems, a Unique Request ID is added to each incoming request and printed to a log. This allows you to correlate log entries for a given web request across multiple log data sources.
+
+Here are some examples of log entries for a Create User request (/api/user):
+
+```log
+web_1  | 2022-12-18 09:56:51 8e06413b-1cbb-41d4-baf3-01ee12b94602 info START Request Id: 8e06413b-1cbb-41d4-baf3-01ee12b94602
+web_1  | 2022-12-18 09:56:51 8e06413b-1cbb-41d4-baf3-01ee12b94602 debug User created: { name: 'John Doe', email: 'john.d@example.net' }
+web_1  | 2022-12-18 09:56:51 8e06413b-1cbb-41d4-baf3-01ee12b94602 info POST /api/user 201 - 145.525 ms
+web_1  | 2022-12-18 09:56:51 8e06413b-1cbb-41d4-baf3-01ee12b94602 info END Request Id: 8e06413b-1cbb-41d4-baf3-01ee12b94602
+```
+
+## SwaggerUI
+
+An interactive API documentation of NET.ts can be accessed at the path: <baseURL>/api-docs \
+For local development use this: http://localhost:8080/api-docs \
+If your webservice's basePath is different from `"/"` put basePath after `api-docs` in url address e.g. \
+for service placed under `<basePath>` subfolder the correct URL is: `https://<baseURL>/<basePath>/api-docs/<basePath>` \
+Remember to select correct protocol befor you try to call any endpoint, "http" is used only for local development. \
+Important: swaggerUI is disabled for the production env
+
+## Running in production with Docker
+
+For the sake of readability, you may build an image with custom name i.e. **net.ts**, go to the root project (where the Dockerfile is) and execute:
+
+`docker build -t net.ts .`
+
+When done, execute the docker run command to create a container from a net.ts image and starts the container with all the required environment variables:
+
+`docker run --rm -it -e NODE_ENV='production' -e API_KEY_TOKEN='your-api-token' net.ts`
+
+That's it, you just ran the app in production mode.
+
+## Contributing
+
+All contributions are welcome!
+
+🙌 Thanks
